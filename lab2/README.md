@@ -98,3 +98,45 @@ A replication slot in PostgreSQL is a mechanism that allows the database to reta
 - `pg_create_logical_replication_slot`: This function creates a logical replication slot, which is used to stream changes (such as inserts, updates, deletes) in a logical format.
 - `airbyte_slot`: the name given to the replication slot
 - `pgoutput`: This is the output plugin that specifies the format for the replication data (Debezium)
+
+
+**2. Create a Publication**
+
+*Publication* is a logical replication feature that defines which tables and changes (INSERT, UPDATE, DELETE) should be shared with subscribers.
+
+You can create a publication for your table using the following command:
+
+    CREATE PUBLICATION pub1 FOR TABLE cursos;
+
+<b></b>
+<b></b>
+
+#### Step 5. Create the Airbyte Source and Destination
+
+**1. Create the Source**
+
+After starting the Airbyte container, create a Postgres source to connect to your database.
+
+<p align="center">
+  <img src="source/images/airbyte-source.png" alt="Alt text" title="Optional title" />
+</p>
+
+To configurate the CDC, you need change the Update Method for *Read Changes using Write-Ahead Log (CDC)*
+
+<p align="center">
+  <img src="source/images/airbyte-cdc.png" alt="Alt text" title="Optional title" />
+</p>
+
+**2. Create the Destination**
+
+In Airbyte, select *destination* from the side menu, and search for *Local JSON*. 
+
+<p align="center">
+  <img src="source/images/airbyte-destination.png" alt="Alt text" title="Optional title" />
+</p>
+
+Here, you'll create a JSON destination to receive the changes in your table.
+
+<p align="center">
+  <img src="source/images/airbyte-destination2.png" alt="Alt text" title="Optional title" />
+</p>
